@@ -20,11 +20,11 @@ const navBar = () => {
                 d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
                 clipRule="evenodd"
               />
-            </svg>
+            </svg>j
             <section className="flex ">
               <input
                 type="text"
-                className="outline-none px-3 py-[8px] text-sm "
+                className="outline-none px-3 py-[9px] text-sm "
                 placeholder="Search for restaurants, food or produ..."
               />
               <button className="w-full bg-[#F2D700] px-4 rounded-r-lg text-sm">
@@ -34,7 +34,7 @@ const navBar = () => {
           </label>
 
           {/* location searching section */}
-          <div className="flex items-center bg-[#F2F2F2] py-[5px] rounded-lg  hover:bg-[#edeaea] w-52 space-x-4 duration-200 transform">
+          <div className="flex items-center border-[#e1dbdb] border py-[5px] rounded-lg  hover:bg-[#e8e7e7] w-52 space-x-4 duration-200 transform">
             <GrLocationPin className="w-7 h-7" />
             <p className="font-robotomain font-semibold text-xs text-[#3e3d3c]">
               Feni 3900, Bangladehs 
@@ -49,8 +49,8 @@ const navBar = () => {
             <TbWorld className="w-5 h-6" />
             <p className="text-xs font-semibold">English</p>
           </section>
-          <button className="py-2 px-4 rounded-lg hover:bg-[#edeaea] font-semibold text-[17px] bg-[#F2F2F2]">
-            Log in
+          <button className="py-[10px] px-3 rounded-lg hover:bg-[#edeaea] font-semibold text-sm bg-[#F2F2F2]">
+            Login
           </button>
         </div>
       </nav>

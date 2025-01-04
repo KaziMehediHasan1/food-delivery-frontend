@@ -4,7 +4,7 @@ const App = () => {
   return (
     <div >
       <Navbar />
-      <div>
+      <div  className="min-h-[calc(100vh-538px)]">
         d
       </div>
       <Footer />

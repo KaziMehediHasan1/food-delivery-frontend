@@ -9,7 +9,7 @@ const footer = () => {
       <div className="">
         {/* logo section */}
         <div className="space-y-3 w-[1080px] mx-auto py-12">
-          <h1>Even easier in the app</h1>
+          <h1 className="font-semibold text-sm">Even easier in the app</h1>
           <div className="flex items-center space-x-4">
             <div className="flex items-center w-32 space-x-2 py-1 border border-gray-500 rounded-lg px-3">
               <FaApple size={15} />
@@ -26,7 +26,7 @@ const footer = () => {
         <div className=" w-[1200px] mx-auto mt-10 flex">
           <div className="w-[600px]"></div>
           <div className="w-[600px] mx-auto space-y-2">
-            <h1>Company Information</h1>
+            <h1 className="font-semibold text-sm">Company Information</h1>
             <section className="space-y-3">
               <div className="space-x-4">
                 <Link className="text-xs hover:text-slate-500 text-slate-600">
@@ -58,16 +58,16 @@ const footer = () => {
                 <Link className="text-xs hover:text-slate-500 text-slate-600">
                   Order food in the Yandex Go app
                 </Link>
-                <Link className="text-xs flex items-center hover:text-slate-500 text-slate-600">
+                <Link className="text-xs flex items-center hover:text-slate-500 text-slate-600 space-x-1">
                   <MdOutlineMail size={20} />
-                  Feedback
+                  <p>Feedback</p>
                 </Link>
               </div>
             </section>
           </div>
         </div>
         <div className="w-full h-[1px] bg-gray-200 mt-16"></div>
-        <div className="flex items-center justify-between px-8 py-5">
+        <div className="flex w-[1080px] mx-auto items-center justify-between px-8 py-5">
           <p className="text-xs hover:text-slate-500 text-slate-600">
             © 2018–2025 Yandex Eats LLC
           </p>
