@@ -22,7 +22,7 @@ const navBar = () => {
                 clipRule="evenodd"
               />
             </svg>
-            j
+            
             <section className="flex ">
               <input
                 type="text"

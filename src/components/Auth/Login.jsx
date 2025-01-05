@@ -1,13 +1,25 @@
+import axios from "axios";
+import { useContext } from "react";
 import { FaFacebook, FaRegQuestionCircle } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { IoMdArrowBack } from "react-icons/io";
 import { Link } from "react-router-dom";
+import { authContext } from "../AuthProvider/AuthProvider";
 
 const Login = () => {
+  const { loginUser } = useContext(authContext);
   // submit function
-  const submitHandler = (e) => {
+  const submitHandler = async(e) => {
     e.preventDefault();
     console.log("submit");
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    try {
+      await loginUser(email, password);
+      // console.log(res);
+    } catch (error) {
+      console.log("user data is not get!", error);
+    }
   };
   return (
     <div
@@ -36,11 +48,13 @@ const Login = () => {
             <div className="flex-col w-[80%] mx-auto space-y-4">
               <input
                 type="text"
+                name="name"
                 placeholder="Enter your name"
                 className="border w-full py-2 px-3 text-sm rounded-lg"
               />
               <input
                 type="eamil"
+                name="email"
                 required
                 placeholder="Enter your email"
                 className="border w-full py-2 px-3 text-sm rounded-lg"
@@ -48,6 +62,7 @@ const Login = () => {
 
               <input
                 type="password"
+                name="password"
                 required
                 placeholder="Enter your password"
                 className="border w-full py-2 px-3 text-sm rounded-lg"

@@ -1,24 +1,63 @@
+import axios from "axios";
 import { FaFacebook, FaRegQuestionCircle } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { IoMdArrowBack } from "react-icons/io";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+const url = import.meta.env.VITE_SERVER_PORT;
+const image_hosting_key = import.meta.env.VITE_IMGBB_APIKEY;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const Register = () => {
+  const navigate = useNavigate();
+
   // submit function
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
+
     const name = e.target.name.value;
     const email = e.target.email.value;
-    const file = e.target.file.value;
+    const file = e.target.file.files[0];
     const password = e.target.password.value;
-    const userData = {
-      name,
-      email,
-      file,
-      password,
-    };
-    console.log("submit", userData);
+    if (!file) {
+      console.error("No file selected");
+      return;
+    }
+
+    // Create FormData and append the file
+    const fileRender = new FormData();
+    fileRender.append("image", file);
+
+    try {
+      // Upload image to ImgBB API
+      const response = await axios.post(image_hosting_api, fileRender, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      const uploadedImgUrl = response.data.data.url;
+      console.log("Uploaded image URL:", uploadedImgUrl);
+
+      const userData = {
+        name,
+        email,
+        photo: uploadedImgUrl,
+        password,
+      };
+
+      const res = await axios.post(`${url}/user`, userData);
+
+      console.log("User data:", res.status);
+      if (res.status === 200) {
+        toast.success("Regstration succesfull");
+        navigate("/login");
+      }
+    } catch (error) {
+      console.error("Error uploading image:", error);
+    }
   };
+
   return (
     <div
       style={{
@@ -52,7 +91,7 @@ const Register = () => {
                 className="border w-full py-2 px-3 text-sm rounded-lg"
               />
               <input
-                type="eamil"
+                type="email"
                 name="email"
                 required
                 placeholder="Enter your email"
@@ -61,7 +100,8 @@ const Register = () => {
               <input
                 type="file"
                 name="file"
-                className="bg-gray-200 w-full rounded-lg py-[8px] file:appearance-none file:border-none file:p-0 cursor-pointer inset-0 "
+                className="bg-gray-200 w-full rounded-lg py-[8px] file:appearance-none file:border-none file:p-0 cursor-pointer inset-0"
+                required
               />
               <input
                 type="password"
