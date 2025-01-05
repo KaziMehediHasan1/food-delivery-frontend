@@ -1,6 +1,7 @@
 import { GrLocationPin } from "react-icons/gr";
 import { IoIosArrowDown } from "react-icons/io";
 import { TbWorld } from "react-icons/tb";
+import { Link } from "react-router-dom";
 const navBar = () => {
   return (
     <div className="border-b-[1px] font-robotomain border-gray-300 w-[98%] mx-auto">
@@ -20,7 +21,8 @@ const navBar = () => {
                 d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
                 clipRule="evenodd"
               />
-            </svg>j
+            </svg>
+            j
             <section className="flex ">
               <input
                 type="text"
@@ -37,7 +39,7 @@ const navBar = () => {
           <div className="flex items-center border-[#e1dbdb] border py-[5px] rounded-lg  hover:bg-[#e8e7e7] w-52 space-x-4 duration-200 transform">
             <GrLocationPin className="w-7 h-7" />
             <p className="font-robotomain font-semibold text-xs text-[#3e3d3c]">
-              Feni 3900, Bangladehs 
+              Feni 3900, Bangladehs
             </p>
             <IoIosArrowDown className="w-4 h-5 " />
           </div>
@@ -49,9 +51,12 @@ const navBar = () => {
             <TbWorld className="w-5 h-6" />
             <p className="text-xs font-semibold">English</p>
           </section>
-          <button className="py-[10px] px-3 rounded-lg hover:bg-[#edeaea] font-semibold text-sm bg-[#F2F2F2]">
+          <Link
+            to="/login"
+            className="py-[10px] px-3 rounded-lg hover:bg-[#edeaea] font-semibold text-sm bg-[#F2F2F2]"
+          >
             Login
-          </button>
+          </Link>
         </div>
       </nav>
     </div>
