@@ -5,6 +5,10 @@ import Home from "../components/Home/Home";
 import Login from "../components/Auth/Login";
 import Register from "../components/Auth/Register";
 import Main from "../components/Dashboard/Main";
+import AddRestaurant from "../components/Dashboard/Content/AddRestaurant";
+import AddFood from "../components/Dashboard/Content/AddFood";
+import AddShop from "../components/Dashboard/Content/AddShop";
+import AddProduct from "../components/Dashboard/Content/AddProduct";
 
 export const router = createBrowserRouter([
   {
@@ -29,5 +33,23 @@ export const router = createBrowserRouter([
   {
     path: "dashboard",
     element: <Main />,
+    children: [
+      {
+        path: "addrestaurant",
+        element: <AddRestaurant />,
+      },
+      {
+        path: "addfood",
+        element: <AddFood />,
+      },
+      {
+        path: "addshop",
+        element: <AddShop />,
+      },
+      {
+        path: "addproduct",
+        element: <AddProduct />,
+      },
+    ],
   },
 ]);

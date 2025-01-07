@@ -12,5 +12,5 @@ export default {
       },
     },
   },
-  plugins: [require("daisyui","flowbite/plugin")],
+  plugins: [require("daisyui", "flowbite/plugin", "tailwind-scrollbar")],
 };
