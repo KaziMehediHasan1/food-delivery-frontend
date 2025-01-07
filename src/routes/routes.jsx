@@ -9,6 +9,8 @@ import AddRestaurant from "../components/Dashboard/Content/AddRestaurant";
 import AddFood from "../components/Dashboard/Content/AddFood";
 import AddShop from "../components/Dashboard/Content/AddShop";
 import AddProduct from "../components/Dashboard/Content/AddProduct";
+import AllFood from "../components/Dashboard/Content/AllFood";
+import AllProducts from "../components/Dashboard/Content/AllProducts";
 
 export const router = createBrowserRouter([
   {
@@ -49,6 +51,14 @@ export const router = createBrowserRouter([
       {
         path: "addproduct",
         element: <AddProduct />,
+      },
+      {
+        path: "allfoods",
+        element: <AllFood />,
+      },
+      {
+        path: "allproduct",
+        element: <AllProducts />,
       },
     ],
   },

@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
 import { toast } from "react-toastify";
-
 const url = import.meta.env.VITE_SERVER_PORT;
 const image_hosting_key = import.meta.env.VITE_IMGBB_APIKEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
@@ -41,7 +40,7 @@ const AddShop = () => {
 
         // Create shop after successful image upload
         const res = await axios.post(`${url}/shopcreate`, shopCreating);
-        if (res?.data?.success && res.status === 200) {
+        if (res.status === 200) {
           toast.success("Shop created successfully!");
           console.log("Shop created: ", res.data);
         } else {

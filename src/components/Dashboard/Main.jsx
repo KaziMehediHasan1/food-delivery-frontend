@@ -1,8 +1,10 @@
 import { CiShop } from "react-icons/ci";
+import { FcShop } from "react-icons/fc";
 import { GiFoodTruck } from "react-icons/gi";
 import { IoRestaurantOutline } from "react-icons/io5";
 import { MdProductionQuantityLimits } from "react-icons/md";
 import { PiBowlFoodThin } from "react-icons/pi";
+import { SiFoodpanda } from "react-icons/si";
 import { Link, NavLink, Outlet } from "react-router-dom";
 
 const Main = () => {
@@ -43,6 +45,17 @@ const Main = () => {
                 <PiBowlFoodThin className="w-4 h-4" />
               </NavLink>
               <NavLink
+                to="allfoods"
+                className={({ isActive }) =>
+                  isActive
+                    ? "flex items-center space-x-1 bg-[#f5de31]  rounded-lg font-semibold py-1 px-2"
+                    : "flex items-center space-x-1 font-semibold py-1 px-2 hover:bg-slate-300 rounded-lg"
+                }
+              >
+                <p>All Foods</p>
+                <SiFoodpanda className="w-4 h-4" />
+              </NavLink>
+              <NavLink
                 to="addshop"
                 className={({ isActive }) =>
                   isActive
@@ -63,6 +76,17 @@ const Main = () => {
               >
                 <p>Add Products</p>
                 <MdProductionQuantityLimits className="w-4 h-4" />
+              </NavLink>
+              <NavLink
+                to="allproduct"
+                className={({ isActive }) =>
+                  isActive
+                    ? "flex items-center space-x-1 bg-[#f5de31] rounded-lg font-semibold py-1 px-2"
+                    : "flex items-center space-x-1 font-semibold py-1 px-2 hover:bg-slate-300 rounded-lg"
+                }
+              >
+                <p>All Products</p>
+                <FcShop className="w-4 h-4" />
               </NavLink>
               <NavLink
                 to="logout"

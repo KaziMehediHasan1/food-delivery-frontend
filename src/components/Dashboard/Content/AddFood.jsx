@@ -179,7 +179,11 @@ const AddFood = () => {
           </div>
         </div>
         <button className="text-center mx-auto w-[90%] bg-yellow-300 py-2 rounded-lg hover:bg-yellow-400 font-semibold">
-          Submit
+          {loading ? (
+            <span className="loading loading-spinner text-warning"></span>
+          ) : (
+            "Add Food"
+          )}
         </button>
       </form>
     </div>
