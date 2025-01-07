@@ -26,14 +26,14 @@ const AddRestaurant = () => {
       setLoading(true);
       const uploadedImgUrl = resPhoto?.data?.data?.url;
       if (uploadedImgUrl) {
-        const shopCreating = {
+        const restaurantInfo = {
           resName,
           resPhoto: uploadedImgUrl,
           resDeliveryTime,
         };
-        const res = await axios.post(`${url}/shopcreate`, shopCreating);
+        const res = await axios.post(`${url}/restaurantName`, restaurantInfo);
         if (res?.data && res.status === 200) {
-          toast.success("Shop created successfully!");
+          toast.success("Restaurant created successfully!");
           setLoading(false);
           console.log("38 line ", res.data, loading);
         }
