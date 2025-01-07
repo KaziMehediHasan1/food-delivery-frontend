@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useContext } from "react";
 import { FaFacebook, FaRegQuestionCircle } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
@@ -7,15 +6,15 @@ import { Link } from "react-router-dom";
 import { authContext } from "../AuthProvider/AuthProvider";
 
 const Login = () => {
-  const { loginUser } = useContext(authContext);
+  const { login } = useContext(authContext);
   // submit function
-  const submitHandler = async(e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
     console.log("submit");
     const email = e.target.email.value;
-    const password = e.target.password.value;
+    const hashedPass = e.target.password.value;
     try {
-      await loginUser(email, password);
+      await login(email, hashedPass);
       // console.log(res);
     } catch (error) {
       console.log("user data is not get!", error);

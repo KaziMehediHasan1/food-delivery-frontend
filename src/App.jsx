@@ -7,7 +7,7 @@ const App = () => {
   return (
     <div>
       <Navbar />
-      <div className="min-h-[calc(100vh-538px)]">
+      <div className="min-h-[calc(100vh-570px)]">
         <Outlet></Outlet>
         <ToastContainer />
       </div>
