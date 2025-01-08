@@ -1,15 +1,18 @@
 import axios from "axios";
+import { useContext } from "react";
 import { FaFacebook, FaRegQuestionCircle } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { IoMdArrowBack } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { authContext } from "../AuthProvider/AuthProvider";
 const url = import.meta.env.VITE_SERVER_PORT;
 const image_hosting_key = import.meta.env.VITE_IMGBB_APIKEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const Register = () => {
   const navigate = useNavigate();
+  const { googleLogin } = useContext(authContext);
 
   // submit function
   const submitHandler = async (e) => {
@@ -37,7 +40,6 @@ const Register = () => {
       });
 
       const uploadedImgUrl = response.data.data.url;
-      console.log("Uploaded image URL:", uploadedImgUrl);
 
       const userData = {
         name,
@@ -70,7 +72,7 @@ const Register = () => {
       }}
       className="font-robotomain"
     >
-      <form onSubmit={submitHandler} className="w-[440px] mx-auto py-28">
+      <div className="w-[440px] mx-auto py-28">
         <div className=" bg-white p-8 rounded-2xl shadow-2xl">
           {/* bar */}
           <div className="flex items-center space-x-28 bg-white justify-center ">
@@ -81,7 +83,7 @@ const Register = () => {
             <FaRegQuestionCircle className="w-8 h-5 " />
           </div>
           {/* input field */}
-          <div className="pt-5">
+          <form onSubmit={submitHandler} className="pt-5">
             <div className="flex-col w-[80%] mx-auto space-y-4">
               <input
                 type="text"
@@ -122,20 +124,23 @@ const Register = () => {
                   login
                 </Link>
               </p>
-              <div className="flex items-center space-x-4 w-full">
-                <button className="border flex items-center space-x-3 w-1/2 mx-auto py-2 rounded-lg px-2 hover:bg-gray-100 duration-200 transform">
-                  <FcGoogle size={25} className="w-4 h-4" />
-                  <p className="text-xs font-semibold">Google</p>
-                </button>
-                <button className="border w-1/2 mx-auto flex items-center space-x-3 py-2 rounded-lg px-2 hover:bg-gray-100 duration-200 transform">
-                  <FaFacebook size={25} className="w-4 h-4 text-blue-500" />
-                  <p className="text-xs font-semibold">Facebook</p>
-                </button>
-              </div>
             </div>
+          </form>
+          <div className="flex w-[80%] mx-auto space-x-4 pt-4">
+            <button
+              onClick={() => googleLogin()}
+              className="border flex items-center space-x-3 w-1/2 mx-auto py-2 rounded-lg px-2 hover:bg-gray-100 duration-200 transform"
+            >
+              <FcGoogle size={25} className="w-4 h-4" />
+              <p className="text-xs font-semibold">Google</p>
+            </button>
+            <button className="border w-1/2 mx-auto flex items-center space-x-3 py-2 rounded-lg px-2 hover:bg-gray-100 duration-200 transform">
+              <FaFacebook size={25} className="w-4 h-4 text-blue-500" />
+              <p className="text-xs font-semibold">Facebook</p>
+            </button>
           </div>
         </div>
-      </form>
+      </div>
     </div>
   );
 };

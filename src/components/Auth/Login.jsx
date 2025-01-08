@@ -6,7 +6,8 @@ import { Link } from "react-router-dom";
 import { authContext } from "../AuthProvider/AuthProvider";
 
 const Login = () => {
-  const { login } = useContext(authContext);
+  const { login, googleLogin } = useContext(authContext);
+
   // submit function
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -32,7 +33,7 @@ const Login = () => {
       }}
       className="font-robotomain"
     >
-      <form onSubmit={submitHandler} className="w-[440px] mx-auto py-28">
+      <div className="w-[440px] mx-auto py-28">
         <div className=" bg-white p-8 rounded-2xl shadow-2xl">
           {/* bar */}
           <div className="flex items-center space-x-28 bg-white justify-center ">
@@ -43,7 +44,7 @@ const Login = () => {
             <FaRegQuestionCircle className="w-8 h-5 " />
           </div>
           {/* input field */}
-          <div className="pt-5">
+          <form onSubmit={submitHandler} className="pt-5">
             <div className="flex-col w-[80%] mx-auto space-y-4">
               <input
                 type="text"
@@ -78,20 +79,23 @@ const Login = () => {
                   register
                 </Link>
               </p>
-              <div className="flex items-center space-x-4 w-full">
-                <button className="border flex items-center space-x-3 w-1/2 mx-auto py-2 rounded-lg px-2 hover:bg-gray-100 duration-200 transform">
-                  <FcGoogle size={25} className="w-4 h-4" />
-                  <p className="text-xs font-semibold">Google</p>
-                </button>
-                <button className="border w-1/2 mx-auto flex items-center space-x-3 py-2 rounded-lg px-2 hover:bg-gray-100 duration-200 transform">
-                  <FaFacebook size={25} className="w-4 h-4 text-blue-500" />
-                  <p className="text-xs font-semibold">Facebook</p>
-                </button>
-              </div>
             </div>
+          </form>
+          <div className="flex items-center space-x-4 w-[80%] mx-auto pt-4">
+            <button
+              onClick={() => googleLogin()}
+              className="border flex items-center space-x-3 w-1/2 mx-auto py-2 rounded-lg px-2 hover:bg-gray-100 duration-200 transform"
+            >
+              <FcGoogle size={25} className="w-4 h-4" />
+              <p className="text-xs font-semibold">Google</p>
+            </button>
+            <button className="border w-1/2 mx-auto flex items-center space-x-3 py-2 rounded-lg px-2 hover:bg-gray-100 duration-200 transform">
+              <FaFacebook size={25} className="w-4 h-4 text-blue-500" />
+              <p className="text-xs font-semibold">Facebook</p>
+            </button>
           </div>
         </div>
-      </form>
+      </div>
     </div>
   );
 };

@@ -125,7 +125,7 @@ const AddFood = () => {
               Food Price
             </label>
             <input
-              type="text"
+              type="number"
               name="foodPrice"
               required
               placeholder="Enter food price"
@@ -152,6 +152,28 @@ const AddFood = () => {
               type="text"
               name="foodDescriptions"
               placeholder="Enter your name"
+              className="w-96 px-3 py-2 rounded"
+            />
+          </div>
+          <div className="flex-col flex space-y-4 py-2">
+            <label htmlFor="name" className="text-xl font-semibold">
+              Food Offer
+            </label>
+            <input
+              type="number"
+              name="foodOffer"
+              placeholder="Enter food offer"
+              className="w-96 px-3 py-2 rounded"
+            />
+          </div>
+          <div className="flex-col flex space-y-4 py-2">
+            <label htmlFor="name" className="text-xl font-semibold">
+              Food Type
+            </label>
+            <input
+              type="text"
+              name="foodType"
+              placeholder="Enter food type"
               className="w-96 px-3 py-2 rounded"
             />
           </div>

@@ -1,18 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-
 const url = import.meta.env.VITE_SERVER_PORT;
 
-const useUser = () => {
+const useAllFoods = () => {
   const {
-    data: users = [],
+    data: foods = [],
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["users"],
+    queryKey: ["foods"],
     queryFn: async () => {
       try {
-        const data = await axios.get(`${url}/allusers`);
+        const data = await axios.get(`${url}/getfoods`);
         return data?.data;
       } catch (error) {
         console.error("Error fetching users:", error);
@@ -20,7 +19,7 @@ const useUser = () => {
       }
     },
   });
-  return [users, isLoading, refetch];
+  return [foods, isLoading, refetch];
 };
 
-export default useUser;
+export default useAllFoods;

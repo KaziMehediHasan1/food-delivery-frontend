@@ -16,6 +16,7 @@ const AddShop = () => {
     const shopImage = e.target.shopImage.files[0];
     const deliveryTime = e.target.deliveryTime.value;
     const shopLocation = e.target.shopLocation.value;
+    const shopType = e.target.shopType.value;
 
     // Create FormData and append the file
     const shopPhoto = new FormData();
@@ -33,9 +34,10 @@ const AddShop = () => {
       if (uploadedImgUrl) {
         const shopCreating = {
           shopName,
-          shopImage:uploadedImgUrl,
+          shopImage: uploadedImgUrl,
           deliveryTime,
           shopLocation,
+          shopType,
         };
 
         // Create shop after successful image upload
@@ -90,6 +92,18 @@ const AddShop = () => {
             required
             name="deliveryTime"
             placeholder="Enter Delivery time"
+            className="w-96 px-3 py-2 rounded"
+          />
+        </div>
+        <div className="flex-col flex space-y-2">
+          <label htmlFor="name" className="text-xl font-semibold">
+            Shop Type
+          </label>
+          <input
+            type="text"
+            required
+            name="shopType"
+            placeholder="Enter shop location"
             className="w-96 px-3 py-2 rounded"
           />
         </div>

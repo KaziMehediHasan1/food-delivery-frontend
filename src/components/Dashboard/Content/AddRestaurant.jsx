@@ -11,6 +11,8 @@ const AddRestaurant = () => {
     const resName = e.target.resName.value;
     const resPhoto = e.target.resPhoto.files[0];
     const resDeliveryTime = e.target.resDeliveryTime.value;
+    const resLocation = e.target.resLocation.value;
+
     // Create FormData and append the file
     const filePhoto = new FormData();
     filePhoto.append("image", resPhoto);
@@ -30,6 +32,7 @@ const AddRestaurant = () => {
           resName,
           resPhoto: uploadedImgUrl,
           resDeliveryTime,
+          resLocation,
         };
         const res = await axios.post(`${url}/restaurantName`, restaurantInfo);
         if (res?.data && res.status === 200) {
@@ -80,6 +83,18 @@ const AddRestaurant = () => {
             required
             name="resDeliveryTime"
             placeholder="Enter Delivery time "
+            className="w-96 px-3 py-2 rounded"
+          />
+        </div>
+        <div className="flex-col flex space-y-2">
+          <label htmlFor="name" className="text-xl font-semibold">
+            Restaurant Location
+          </label>
+          <input
+            type="text"
+            required
+            name="resLocation"
+            placeholder="Enter shop location"
             className="w-96 px-3 py-2 rounded"
           />
         </div>

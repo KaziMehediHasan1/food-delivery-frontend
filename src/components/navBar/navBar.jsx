@@ -3,18 +3,19 @@ import { GrLocationPin } from "react-icons/gr";
 import { IoIosArrowDown, IoIosNotificationsOutline } from "react-icons/io";
 import { TbWorld } from "react-icons/tb";
 import { Link } from "react-router-dom";
-import useUser from "../hooks/useUser";
+// import useUser from "../hooks/useUser";
 import { authContext } from "../AuthProvider/AuthProvider";
 const navBar = () => {
   const [dropdown, setDropdown] = useState(false);
-  const { user, logout } = useContext(authContext);
-  const [users, isLoading, refetch] = useUser();
-  // const user = localStorage.getItem("user");
+  const { logout } = useContext(authContext);
+  // const [users, isLoading, refetch] = useUser();
+  const user = JSON.parse(localStorage.getItem("user"));
+  const token = localStorage.getItem("token");
   const handleDropdown = () => {
     setDropdown((prev) => !prev);
   };
   console.log(dropdown);
-  // console.log(, user, "15 no line");
+  console.log(user, "15 no line");
   return (
     <div className="border-b-[1px] font-robotomain border-gray-300 w-[98%] mx-auto">
       <nav className="flex items-center justify-between px-4 py-3">
@@ -59,7 +60,7 @@ const navBar = () => {
 
         {/* language and auth btn */}
         <div className="flex items-center space-x-3">
-          {!user ? (
+          {user && token ? (
             <>
               <div className="flex items-center  space-x-4">
                 <section className="inline-flex flex-col items-center">
@@ -72,10 +73,11 @@ const navBar = () => {
                 </div>
               </div>
               <button onClick={handleDropdown}>
-                <img
-                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                  className={`w-10 rounded-full`}
-                />
+                {user?.picture ? (
+                  <img src={user?.picture} className={`w-10 rounded-full`} />
+                ) : (
+                  <img src={user?.photo} className={`w-10 rounded-full`} />
+                )}
 
                 <div
                   className={`w-96 bg-white shadow-lg rounded-xl px-5 py-5 h-80  ${
@@ -85,11 +87,15 @@ const navBar = () => {
                   }`}
                 >
                   <div className="flex items-center w-full justify-between">
-                    <h1 className="text-xl font-semibold">kazi</h1>
-                    <img
-                      src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                      className="w-10 rounded-full"
-                    />
+                    <h1 className="text-xl font-semibold">{user?.name}</h1>
+                    {user?.picture ? (
+                      <img
+                        src={user?.picture}
+                        className={`w-10 rounded-full`}
+                      />
+                    ) : (
+                      <img src={user?.photo} className={`w-10 rounded-full`} />
+                    )}
                   </div>
                   <div className="flex flex-col mt-4 space-y-2 place-items-start">
                     <Link className="hover:bg-slate-100 py-[6px] rounded-lg">

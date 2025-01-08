@@ -126,7 +126,7 @@ const AddProduct = () => {
               Product Offer
             </label>
             <input
-              type="text"
+              type="number"
               name="proOffer"
               required
               placeholder="Enter product offer"
@@ -160,7 +160,7 @@ const AddProduct = () => {
               Product Price
             </label>
             <input
-              type="text"
+              type="number"
               name="proPrice"
               required
               placeholder="Enter product price"
@@ -215,7 +215,7 @@ const AddProduct = () => {
               name="prodeliveryTime"
               required
               placeholder="Enter product delivery time"
-              className="w-96 px-3 py-2 rounded"
+              className="w-96 px-3 py-2 rounded "
             />
           </div>
         </div>
