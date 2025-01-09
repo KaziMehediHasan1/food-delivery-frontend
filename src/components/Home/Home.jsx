@@ -17,29 +17,37 @@ const Home = () => {
   const [foodCurrentPage, setOfferCurrentPage] = useState(0);
   const totalItems = Math.ceil(shops?.length / 5);
   const offerFood = foods?.filter((res) => res?.foodOffer);
-  const foodPages = Math.ceil(offerFood?.length / 5);
-
-// offer foods carousal 
-const nextOfferBtn=()=>{
-  
-}
+  const foodPages = Math.ceil(offerFood?.length / 4);
+  // offer foods carousal
+  const nextOfferBtn = () => {
+    if (foodCurrentPage < foodPages - 1) {
+      setOfferCurrentPage(foodCurrentPage + 1);
+    }
+  };
+  const prevFoodOfferBtn = () => {
+    if (foodCurrentPage > 0) {
+      setOfferCurrentPage(foodCurrentPage - 1);
+    }
+  };
 
   // shop carousal
   const nextBtn = () => {
     if (currentPage < totalItems - 1) {
       setCurrentPage(currentPage + 1);
-      console.log(currentPage);
     }
   };
   const prevBtn = () => {
     if (currentPage > 0) {
       setCurrentPage(currentPage - 1);
-      console.log(currentPage);
     }
   };
   const currentShops = shops?.slice(currentPage * 5, (currentPage + 1) * 5);
+  const foodsCurrentOffer = foods?.slice(
+    foodCurrentPage * 4,
+    (foodCurrentPage + 1) * 4
+  );
   return (
-    <div className="w-[1520px] mx-auto mt-10 font-robotomain">
+    <div className="w-[1520px] mx-auto mt-10 font-robotomain pb-96">
       {/* SHOP SECTION */}
       <div>
         <div className="flex items-center justify-between">
@@ -78,7 +86,9 @@ const nextOfferBtn=()=>{
             : "nai"}{" "}
           <button
             onClick={prevBtn}
-            className="absolute rotate-180 top-14 -left-3 rounded-full w-8 h-8 shadow-lg shadow-gray-200"
+            className={`absolute rotate-180 top-14 -left-3 rounded-full w-8 h-8 shadow-lg shadow-gray-200 ${
+              currentPage == 0 && "hidden"
+            }`}
           >
             <FiChevronRight className="w-10 h-10 p-1 bg-white mx-auto hover:bg-gray-200  transform duration-200 rounded-full" />
           </button>
@@ -141,7 +151,7 @@ const nextOfferBtn=()=>{
             <h1 className="font-semibold text-3xl">Offer</h1>
             <div className="grid grid-cols-4 gap-12 absolute">
               {offerFood &&
-                offerFood?.map((food) => {
+                foodsCurrentOffer?.map((food) => {
                   // console.log(foodtaurant, "134lin");
                   return (
                     <NavLink key={food._id} className="rounded">
@@ -175,14 +185,18 @@ const nextOfferBtn=()=>{
                   );
                 })}
               <button
-                onClick={prevBtn}
-                className="absolute rotate-180 top-24 -left-4 rounded-full w-8 h-8 shadow-lg shadow-gray-200"
+                onClick={prevFoodOfferBtn}
+                className={`absolute rotate-180 top-24 -left-4 rounded-full w-8 h-8 shadow-lg shadow-gray-200 ${
+                  foodCurrentPage == 0 && "hidden"
+                }`}
               >
                 <FiChevronRight className="w-10 h-10 p-1 bg-white mx-auto hover:bg-gray-200  transform duration-200 rounded-full" />
               </button>
               <button
-                onClick={nextBtn}
-                className="absolute rotate-180 top-24 -right-5 rounded-full w-8 h-8 shadow-lg shadow-gray-200"
+                onClick={nextOfferBtn}
+                className={`absolute rotate-180 top-24 -right-5 rounded-full w-8 h-8 shadow-lg shadow-gray-200 ${
+                  foodCurrentPage === foodsCurrentOffer?.length && "hidden"
+                }`}
               >
                 <FiChevronLeft className="w-10 h-10 p-1 bg-white mx-auto hover:bg-gray-200  transform duration-200 rounded-full" />
               </button>

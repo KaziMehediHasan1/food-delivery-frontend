@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const footer = () => {
   return (
-    <div className="bg-[#F9F9F9] w-full h-full font-robotomain">
+    <div className="bg-[#F9F9F9] w-full font-robotomain">
       <div className="">
         {/* logo section */}
         <div className="space-y-3 w-[1080px] mx-auto py-12">
