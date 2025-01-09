@@ -9,7 +9,7 @@ const App = () => {
       <div className="min-h-[calc(100vh-570px)]">
         <Outlet></Outlet>
       </div>
-      <Footer />
+      <Footer/>
     </div>
   );
 };
