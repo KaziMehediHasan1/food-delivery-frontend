@@ -17,6 +17,8 @@ const AddFood = () => {
     const foodName = e.target.foodName.value;
     const foodPrice = parseInt(e.target.foodPrice.value);
     const foodWeight = e.target.foodWeight.value;
+    const foodType = e.target.foodType.value;
+    const foodOffer = parseInt(e.target.foodOffer.value);
     const foodTags = selectedOption.map((tag) => tag.value);
     const foodIngrediants = selectedIngrediants.map(
       (grediants) => grediants.value
@@ -54,6 +56,8 @@ const AddFood = () => {
           foodIngrediants,
           foodDescriptions,
           foodPhoto: uploadedImgUrl,
+          foodType,
+          foodOffer,
         };
         const res = await axios.post(`${url}/createfood`, foodItems);
         if (res?.data && res.status === 200) {
