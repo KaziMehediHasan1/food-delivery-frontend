@@ -55,9 +55,15 @@ const RestaurantDetails = () => {
   const handleTypeToShowData = (type) => {
     console.log("data", type);
   };
+
+  if (isLoading) {
+    return (
+      <span className="loading loading-spinner text-warning mt-20 mx-32"></span>
+    );
+  }
   return (
-    <div className="bg-[#F5F4F2]">
-      <div className="w-[1520px] mx-auto pb-14">
+    <div className="lg:bg-[#F5F4F2] pb-10 lg:pb-0">
+      <div className="w-[1520px] lg:block hidden mx-auto pb-14">
         {/* Desktop restaurant section */}
         <div className="grid grid-cols-[200px_1fr_300px] gap-x-10 w-full bg-[#F5F4F2] pt-12 h-screen">
           {/* Catalog side */}
@@ -240,6 +246,126 @@ const RestaurantDetails = () => {
                 </button>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+
+      {/* mobile view */}
+      <div className="w-80 md:w-[720px] mx-auto rounded-lg lg:hidden block">
+        <div className="overflow-y-auto h-screen scrollbar-none ">
+          {restaurant
+            ?.filter((res) => res?.resName === name)
+            ?.map((item) => {
+              return (
+                <div
+                  key={item?._id}
+                  className="h-80 inset-0 bg-cover bg-black bg-opacity-30 backdrop-blur-sm relative rounded-3xl"
+                  style={{
+                    backgroundImage: `url(${item?.resPhoto})`,
+                  }}
+                >
+                  <div className="absolute top-[220px] px-2  space-y-2">
+                    <h1 className="text-xl font-bold text-white">
+                      {item?.resName} Restaurant
+                    </h1>
+                    <div className="flex items-center space-x-2">
+                      {/* Delivery Info */}
+                      <div className="flex items-center space-x-2 bg-gray-200 py-3 rounded-lg px-4">
+                        <CiDeliveryTruck
+                          size={20}
+                          className="text-black font-semibold"
+                        />
+                        <p className="text-xs font-semibold">
+                          {item?.resDeliveryTime}
+                        </p>
+                      </div>
+                      {/* Ratings Info */}
+                      <div className="flex items-center space-x-2 bg-gray-200 py-3 rounded-lg px-4">
+                        <CiStar
+                          size={20}
+                          className="text-black font-semibold"
+                        />
+                        <p className="text-xs font-semibold">4.7 (200+)</p>
+                      </div>
+                      <button className=" rounded-lg bg-gray-200 py-3  px-3">
+                        <IoAlertSharp size={20} />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          {/* delivery text */}
+          <div className="bg-green-200 mt-8 rounded-lg px-4  flex items-center">
+            <img
+              src="https://eda.yandex/images/3816972/0a6904a5dbf6de2762626985e3fc860b.png"
+              alt="png"
+              className="w-16"
+            />
+            <p className="text-green-600 font-semibold">
+              Free delivery – on any order
+            </p>
+          </div>
+
+          {/* show card */}
+          <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-10">
+            {foods
+              ?.filter((shop) => shop?.resName === name)
+              .map((item) => {
+                return (
+                  <button
+                    onClick={() => handleModalOpen(item)}
+                    key={item?._id}
+                    className="w-[140px] h-[280px] bg-gray-100 rounded-3xl shadow-sm shadow-gray-50"
+                  >
+                    <img
+                      src={item?.foodPhoto}
+                      className="w-28 h-28 mx-auto pt-4 rounded-full overflow-hidden"
+                    />
+                    <div className="px-5 pt-4">
+                      <div className="space-y-1">
+                        <p className="text-xl font-semibold">
+                          {item?.foodPrice}TK
+                        </p>
+                        <h1 className="text-sm font-semibold">
+                          {item?.foodName}
+                        </h1>
+                        <p className="text-sm font-semibold text-gray-400">
+                          {" "}
+                          {item?.foodWeight}
+                        </p>
+                      </div>
+                      <div className="py-3">
+                        {cart[item._id] ? (
+                          <div className="flex items-center py-2 space-x-4 lg:space-x-8 justify-center mx-auto lg:w-[160px] md:w-[110px] w-[100px] bg-gray-200 rounded-2xl">
+                            <button onClick={() => handleIncrement(item._id)}>
+                              <IoMdAdd />
+                            </button>
+                            <p>{cart[item._id].quantity}</p>
+                            <button onClick={() => handleDecrement(item._id)}>
+                              <FiMinus />
+                            </button>
+                          </div>
+                        ) : (
+                          <button
+                            onClick={() => handleAddTocart(item)}
+                            className="flex items-center py-2 space-x-3 justify-center mx-auto w-[100px] bg-white rounded-2xl"
+                          >
+                            <IoMdAdd />
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  </button>
+                );
+              })}
+
+            {showModal && (
+              <DetailsModal
+                closeModal={() => setShowModal(false)}
+                item={selectedItem}
+              />
+            )}
           </div>
         </div>
       </div>

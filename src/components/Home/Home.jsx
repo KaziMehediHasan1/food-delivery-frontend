@@ -60,8 +60,14 @@ const Home = () => {
   const handleNavigateToShop = (name) => {
     navigate(`/shop-details/${name}`);
   };
+
+  if (isLoading) {
+    return (
+      <span className="loading loading-spinner text-warning mt-20 mx-32"></span>
+    );
+  }
   return (
-    <div className="lg:w-[1520px] w-80  mx-auto mt-10 font-robotomain pb-10">
+    <div className="lg:w-[1520px] w-80 md:w-[690px] mx-auto mt-10 font-robotomain pb-10">
       {/* SHOP SECTION */}
       <div>
         <div className="lg:hidden block pb-10">
@@ -80,7 +86,7 @@ const Home = () => {
                 <SwiperSlide key={res?._id}>
                   <img
                     src={res?.resPhoto}
-                    className="w-80 h-44 rounded-xl relative"
+                    className="w-80 md:w-[800px] md:h-64 h-44 rounded-xl relative"
                   />
                   <div className="absolute top-28 left-10">
                     <h1 className=" text-white top-32 left-10 text-xl shadow-md  font-semibold">
@@ -93,14 +99,14 @@ const Home = () => {
             })}
           </Swiper>
         </div>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between md:px-2 lg:px-0 ">
           <h1 className="text-3xl font-semibold">Shop</h1>
-          <button className="text-sm mr-4 bg-gray-200 hover:bg-slate-100 duration-200 w-12 h-9 rounded-full">
+          <button className="text-sm lg:mr-4 bg-gray-200 hover:bg-slate-100 duration-200 w-12 h-9 rounded-full">
             All
           </button>
         </div>
         {/* parent card div */}{" "}
-        <div className="mt-2 gap-5 relative grid lg:grid-cols-5 grid-cols-1">
+        <div className="mt-2 gap-5 relative grid lg:grid-cols-5 grid-cols-1 md:grid-cols-2">
           {shops
             ? currentShops?.map((shop) => {
                 return (
@@ -114,7 +120,7 @@ const Home = () => {
                         backgroundSize: "cover",
                         backgroundPosition: "center",
                       }}
-                      className="lg:w-[270px] w-80 mx-auto h-36 rounded-2xl relative hover:cursor-pointer"
+                      className="lg:w-[270px]  w-80 md:w-76 md:h-[150px] mx-auto h-36 rounded-2xl relative hover:cursor-pointer"
                     >
                       <div className="lg:w-44 w-32 py-1 px-2 space-x-3 mx-auto bg-gray-700 flex items-center absolute bottom-0 right-0 rounded-tl-xl rounded-bl-xl rounded-br-2xl shadow-lg bg-opacity-70">
                         <CiDeliveryTruck
@@ -146,9 +152,9 @@ const Home = () => {
           </button>
         </div>
         {/* sorting data */}
-        <div className="lg:w-[1500px] w-[320px]">
-          <div className="mt-8 py-2 bg-slate-100  flex justify-between px-4 items-center rounded-lg">
-            <div className="lg:flex hidden space-x-3">
+        <div className="lg:w-[1500px] w-[320px] md:w-[710px]">
+          <div className="mt-8 lg:py-2 bg-slate-100  flex justify-between px-4 items-center rounded-lg">
+            <div className="md:flex hidden space-x-3">
               <button className="hover:bg-white py-3 px-4 rounded-lg">
                 All
               </button>
@@ -170,24 +176,24 @@ const Home = () => {
               <button className="hover:bg-white py-3 px-4 rounded-lg">
                 Lounch
               </button>
-              <button className="hover:bg-white py-3 px-4 rounded-lg">
+              <button className="hover:bg-white py-3 px-4 md:hidden lg:block rounded-lg">
                 Indian
               </button>
-              <button className="hover:bg-white py-3 px-4 rounded-lg">
+              <button className="hover:bg-white py-3 px-4 md:hidden lg:block rounded-lg">
                 Bangali
               </button>
-              <button className="hover:bg-white py-3 px-4 rounded-lg">
+              <button className="hover:bg-white py-3 px-4 md:hidden lg:block rounded-lg">
                 Rool
               </button>
-              <button className="hover:bg-white py-3 px-4 rounded-lg">
+              <button className="hover:bg-white py-3 px-4 md:hidden lg:block rounded-lg">
                 Carry-out
               </button>
-              <button className="hover:bg-white py-3 px-4 rounded-lg">
+              <button className="hover:bg-white py-3 px-4 md:hidden lg:block rounded-lg">
                 China
               </button>
             </div>
             {/* mobile device start*/}
-            <div className="dropdown dropdown-hover">
+            <div className="dropdown dropdown-hover md:hidden block">
               <div tabIndex={0} role="button" className="btn m-1">
                 More
               </div>
@@ -218,7 +224,7 @@ const Home = () => {
           {/* offer card */}
           <div className="mt-7">
             <h1 className="font-semibold text-3xl">Offer</h1>
-            <div className="grid lg:grid-cols-4 grid-cols-1 gap-12 lg:absolute">
+            <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 lg:gap-12 md:gap-2 gap-8 lg:absolute">
               {offerFood &&
                 foodsCurrentOffer?.map((food) => {
                   return (
@@ -277,10 +283,38 @@ const Home = () => {
             </div>
           </div>
 
+          {/* all restaurant start for mobile device */}
+          <div className="mt-10">
+            <h1 className="text-2xl font-semibold pb-6">All Shop</h1>
+            <div className="lg:hidden block">
+              <Swiper
+                spaceBetween={30}
+                centeredSlides={true}
+                autoplay={{
+                  delay: 1000,
+                  disableOnInteraction: false,
+                }}
+                modules={[Autoplay]}
+                className="mySwiper"
+              >
+                {shops?.map((res) => {
+                  return (
+                    <SwiperSlide key={res?._id}>
+                      <img
+                        src={res?.shopImage}
+                        className="w-80 md:w-[720px] md:h-64 h-44 rounded-2xl relative"
+                      />
+                    </SwiperSlide>
+                  );
+                })}
+              </Swiper>
+            </div>
+          </div>
+          {/* all restaurant end */}
           {/* restaurant section */}
-          <div className="lg:mt-[335px] mt-16">
+          <div className="lg:mt-[335px] md:w-[480px] lg:w-full mt-12">
             <h1 className="font-semibold text-3xl">Restaurant</h1>
-            <div className="grid lg:grid-cols-4 gap-10">
+            <div className="grid lg:grid-cols-4 grid-cols-1 md:grid-cols-2 gap-8 md:gap-x-32 lg:gap-10 ">
               {restaurant &&
                 restaurant?.map((res) => {
                   return (
@@ -289,11 +323,11 @@ const Home = () => {
                       key={res?._id}
                       className="rounded"
                     >
-                      <div className=" lg:w-[340px] w-80 h-[270px] rounded-2xl mt-4 relative hover:cursor-pointer">
+                      <div className=" lg:w-[340px] w-80 md:w-72 mx-auto h-[270px] rounded-2xl mt-4 relative hover:cursor-pointer">
                         <img
                           src={res?.resPhoto}
                           alt=""
-                          className="h-[185px] w-[340px] rounded-xl object-cover"
+                          className="lg:h-[185px] lg:w-[340px]  md:w-[280px] w-80 h-44 rounded-xl object-cover "
                         />
                         <div className=" py-1 px-2 space-x-3 mx-auto bg-gray-900 flex items-center absolute right-3 m-4 -top-2 rounded-full shadow-lg bg-opacity-70 hover:bg-slate-50 text-white hover:text-black">
                           <CiBookmark className="w-5 h-7  " />

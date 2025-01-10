@@ -23,7 +23,7 @@ const navBar = () => {
     navigete(`/searching?search=${search}`);
   };
   return (
-    <div className="lg:border-b-[1px] font-robotomain border-gray-300 lg:w-[98%] w-[340px] mx-auto">
+    <div className="lg:border-b-[1px] font-robotomain border-gray-300 lg:w-[98%] w-[340px] md:w-[740px] mx-auto">
       <nav className="flex items-center justify-between lg:px-4 lg:py-3 py-2">
         {/* mobile device start */}
         <div className="navbar border shadow-md bg-gray-100 lg:hidden rounded-lg flex items-center  z-10">
@@ -82,9 +82,10 @@ const navBar = () => {
               </ul>
             </div>
           </div>{" "}
-          <h1 className="font-semibold text-xl pl-8">FreshFeast</h1>
+          <Link to="/" className="font-semibold text-xl pl-8 md:pl-44">
+            FreshFeast 
+          </Link>
         </div>
-
         {/* mobile device end */}
         <div className="lg:flex hidden items-center space-x-5">
           <div className="font-bold text-xl flex items-center space-x-4">

@@ -4,16 +4,15 @@ import { Link, useParams } from "react-router-dom";
 import DetailsModal from "./DetailsModal";
 import { useState } from "react";
 import useAllProducts from "../hooks/useAllProducts";
-import { IoMdAdd } from "react-icons/io";
+import { IoIosArrowForward, IoMdAdd } from "react-icons/io";
+import { FaArrowCircleRight, FaSearch } from "react-icons/fa";
 
 const ShopDetails = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const { name } = useParams();
   const [products, isLoading] = useAllProducts();
-  console.log(products)
   const [cart, setCart] = useState({});
-  // console.log(name, products);
   const handleAddTocart = (food) => {
     setCart((prevCart) => {
       const updatedCart = { ...prevCart };
@@ -48,11 +47,17 @@ const ShopDetails = () => {
     setShowModal(true);
     setSelectedItem(item);
   };
+
+  if (isLoading) {
+    return (
+      <span className="loading loading-spinner text-warning mt-20 mx-32"></span>
+    );
+  }
   return (
-    <div className="bg-[#F5F4F2]">
-      <div className="w-[1520px] mx-auto pb-14">
+    <div className="lg:bg-[#F5F4F2]">
+      <div className="lg:w-[1520px]  mx-auto">
         {/* Desktop restaurant section */}
-        <div className="grid grid-cols-[200px_1fr_300px] gap-x-10 w-full bg-[#F5F4F2] pt-12 h-screen">
+        <div className="lg:grid grid-cols-[200px_1fr_300px] hidden  gap-x-10 w-full bg-[#F5F4F2] pt-12 h-screen">
           {/* Catalog side */}
           <div className="w-[200px] flex-shrink-0">
             <Link
@@ -173,6 +178,109 @@ const ShopDetails = () => {
                     />
                   </div>
                 </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* mobile view */}
+
+      <div className="w-[345px] mt-3 md:w-[720px] mx-auto lg:hidden block">
+        <div className="py-4 flex space-x-3 items-center bg-slate-100 rounded-2xl justify-center">
+          <FaSearch className="text-gray-500" />
+          <p className="text-gray-500 font-semibold">Quick search</p>
+        </div>
+        {/* catalog */}
+
+        <div className="pt-5">
+          <div className="grid grid-cols-4 gap-5">
+            {products?.slice(0, 8).map((pro) => {
+              return (
+                <div key={pro?._id}>
+                  <div className="space-y-3">
+                    <img
+                      src={pro?.proPhoto}
+                      className="w-12 md:w-16 md:h-16 mx-auto rounded-full h-12 "
+                    />
+                    <h1 className="text-xs font-semibold text-center">{pro?.proName}</h1>
+                  </div>
+                </div>
+              );
+            })}
+            {/* discount  */}
+            <div className="w-80 md:w-[720px] mx-auto">
+              <div className="flex items-center justify-between">
+                <h1 className="font-semibold">Discounts and promos</h1>
+                <button className="flex items-center space-x-1 bg-gray-100 py-1 px-2 rounded-xl">
+                  <p>All</p> <IoIosArrowForward />
+                </button>
+              </div>
+
+              {/* card */}
+              <div className="pb-8">
+                <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-10">
+                  {products
+                    ?.filter((shop) => shop?.shopName === name)
+                    .map((item) => {
+                      return (
+                        <button
+                          onClick={() => handleModalOpen(item)}
+                          key={item?._id}
+                          className="w-[140px] h-[260px] bg-gray-100 rounded-3xl shadow-sm shadow-gray-50"
+                        >
+                          <img
+                            src={item?.proPhoto}
+                            className="w-28 h-28 mx-auto pt-4 rounded-full overflow-hidden"
+                          />
+                          <div className="px-5 pt-4">
+                            <div className="space-y-1">
+                              <p className="text-xl font-semibold">
+                                {item?.proPrice}TK
+                              </p>
+                              <h1 className="text-sm font-semibold">
+                                {item?.proName}
+                              </h1>
+                              <p className="text-sm font-semibold text-gray-400">
+                                {" "}
+                                {item?.shopWeight}
+                              </p>
+                            </div>
+                            <div className="py-3">
+                              {cart[item._id] ? (
+                                <div className="flex items-center py-2 space-x-4 md:space-x-8 justify-center mx-auto lg:w-[160px] md:w-[110px] w-[100px] bg-gray-200 rounded-2xl">
+                                  <button
+                                    onClick={() => handleIncrement(item._id)}
+                                  >
+                                    <IoMdAdd />
+                                  </button>
+                                  <p>{cart[item._id].quantity}</p>
+                                  <button
+                                    onClick={() => handleDecrement(item._id)}
+                                  >
+                                    <FiMinus />
+                                  </button>
+                                </div>
+                              ) : (
+                                <button
+                                  onClick={() => handleAddTocart(item)}
+                                  className="flex items-center py-2 space-x-3 justify-center mx-auto w-[100px] bg-white rounded-2xl"
+                                >
+                                  <IoMdAdd />
+                                </button>
+                              )}
+                            </div>
+                          </div>
+                        </button>
+                      );
+                    })}
+                </div>
+                {showModal && (
+                  <DetailsModal
+                    closeModal={() => setShowModal(false)}
+                    item={selectedItem}
+                  />
+                )}
               </div>
             </div>
           </div>
