@@ -23,19 +23,84 @@ const navBar = () => {
     navigete(`/searching?search=${search}`);
   };
   return (
-    <div className="border-b-[1px] font-robotomain border-gray-300 w-[98%] mx-auto">
-      <nav className="flex items-center justify-between px-4 py-3">
-        <div className="flex items-center space-x-5">
+    <div className="lg:border-b-[1px] font-robotomain border-gray-300 lg:w-[98%] w-[340px] mx-auto">
+      <nav className="flex items-center justify-between lg:px-4 lg:py-3 py-2">
+        {/* mobile device start */}
+        <div className="navbar border shadow-md bg-gray-100 lg:hidden rounded-lg flex items-center  z-10">
+          <div className="navbar-start">
+            <div className="dropdown">
+              <div
+                tabIndex={0}
+                role="button"
+                className="btn btn-ghost lg:hidden"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M4 6h16M4 12h8m-8 6h16"
+                  />
+                </svg>
+              </div>
+              <ul
+                tabIndex={0}
+                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+              >
+                <li>
+                  <span>
+                    {user?.picture ? (
+                      <img
+                        src={user?.picture}
+                        className={`w-12 rounded-full`}
+                      />
+                    ) : (
+                      <img src={user?.photo} className={`w-12 rounded-full`} />
+                    )}
+                  </span>
+                  <Link>My Info</Link>
+                  <Link>My address</Link>
+                  <Link>My orders</Link>
+                  <Link to="/dashboard">Dashboard</Link>
+                  {user ? (
+                    <button onClick={logout()}>Logout</button>
+                  ) : (
+                    <Link
+                      to="/login"
+                      className="py-[10px] px-3 rounded-lg  font-semibold text-sm"
+                    >
+                      Login
+                    </Link>
+                  )}
+                </li>
+              </ul>
+            </div>
+          </div>{" "}
+          <h1 className="font-semibold text-xl pl-8">FreshFeast</h1>
+        </div>
+
+        {/* mobile device end */}
+        <div className="lg:flex hidden items-center space-x-5">
           <div className="font-bold text-xl flex items-center space-x-4">
-            <Link to="/"> FreshFeast</Link> <div className="h-4 border"></div>
+            <Link to="/" className="text-xl lg:text-3xl">
+              {" "}
+              FreshFeast
+            </Link>{" "}
+            <div className="h-4 border lg:block hidden"></div>
           </div>
 
-          <label className="border pl-2 border-[#F2D700] rounded-lg flex items-center gap-2">
+          <label className="border pl-2 hidden border-[#F2D700] rounded-lg lg:flex items-center gap-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 16 16"
               fill="currentColor"
-              className="h-4 w-4 opacity-70"
+              className="h-4 w-4 opacity-70 "
             >
               <path
                 fillRule="evenodd"
@@ -44,7 +109,7 @@ const navBar = () => {
               />
             </svg>
 
-            <section className="flex">
+            <section className="lg:flex hidden">
               <input
                 type="text"
                 onChange={(e) => setSearch(e.target.value)}
@@ -63,7 +128,7 @@ const navBar = () => {
           </label>
 
           {/* location searching section */}
-          <div className="flex items-center border-[#e1dbdb] border py-[5px] rounded-lg  hover:bg-[#e8e7e7] w-52 space-x-4 duration-200 transform">
+          <div className="lg:flex hidden items-center border-[#e1dbdb] border py-[5px] rounded-lg  hover:bg-[#e8e7e7] w-52 space-x-4 duration-200 transform">
             <GrLocationPin className="w-7 h-7" />
             <p className="font-robotomain font-semibold text-xs text-[#3e3d3c]">
               Feni 3900, Bangladehs
@@ -73,7 +138,7 @@ const navBar = () => {
         </div>
 
         {/* language and auth btn */}
-        <div className="flex items-center space-x-3">
+        <div className="lg:flex hidden items-center space-x-3">
           {user && token ? (
             <>
               <div className="flex items-center  space-x-4">

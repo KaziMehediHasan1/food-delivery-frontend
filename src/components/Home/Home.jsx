@@ -9,7 +9,11 @@ import { VscSettings } from "react-icons/vsc";
 import { MdOutlineDeliveryDining } from "react-icons/md";
 import useAllFoods from "../hooks/useAllFoods";
 import { IoIosStar } from "react-icons/io";
-import navBar from "../Navbar/Navbar";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import { Autoplay, Pagination, Navigation } from "swiper/modules";
 const Home = () => {
   const navigate = useNavigate();
   const [restaurant, isLoading, refetch] = useAllRestaurant();
@@ -57,9 +61,38 @@ const Home = () => {
     navigate(`/shop-details/${name}`);
   };
   return (
-    <div className="w-[1520px] mx-auto mt-10 font-robotomain pb-10">
+    <div className="lg:w-[1520px] w-80  mx-auto mt-10 font-robotomain pb-10">
       {/* SHOP SECTION */}
       <div>
+        <div className="lg:hidden block pb-10">
+          <Swiper
+            spaceBetween={30}
+            centeredSlides={true}
+            autoplay={{
+              delay: 1000,
+              disableOnInteraction: false,
+            }}
+            modules={[Autoplay]}
+            className="mySwiper"
+          >
+            {restaurant?.map((res) => {
+              return (
+                <SwiperSlide key={res?._id}>
+                  <img
+                    src={res?.resPhoto}
+                    className="w-80 h-44 rounded-xl relative"
+                  />
+                  <div className="absolute top-28 left-10">
+                    <h1 className=" text-white top-32 left-10 text-xl shadow-md  font-semibold">
+                      {res?.resName}
+                    </h1>
+                    <p className="text-white">{res?.resDeliveryTime}</p>
+                  </div>
+                </SwiperSlide>
+              );
+            })}
+          </Swiper>
+        </div>
         <div className="flex items-center justify-between">
           <h1 className="text-3xl font-semibold">Shop</h1>
           <button className="text-sm mr-4 bg-gray-200 hover:bg-slate-100 duration-200 w-12 h-9 rounded-full">
@@ -67,7 +100,7 @@ const Home = () => {
           </button>
         </div>
         {/* parent card div */}{" "}
-        <div className="mt-2 gap-5 relative grid grid-cols-5">
+        <div className="mt-2 gap-5 relative grid lg:grid-cols-5 grid-cols-1">
           {shops
             ? currentShops?.map((shop) => {
                 return (
@@ -81,14 +114,14 @@ const Home = () => {
                         backgroundSize: "cover",
                         backgroundPosition: "center",
                       }}
-                      className="w-[270px] h-36 rounded-2xl relative hover:cursor-pointer"
+                      className="lg:w-[270px] w-80 mx-auto h-36 rounded-2xl relative hover:cursor-pointer"
                     >
-                      <div className="w-44 py-1 px-2 space-x-3 mx-auto bg-gray-700 flex items-center absolute bottom-0 right-0 rounded-tl-xl rounded-bl-xl rounded-br-2xl shadow-lg bg-opacity-70">
+                      <div className="lg:w-44 w-32 py-1 px-2 space-x-3 mx-auto bg-gray-700 flex items-center absolute bottom-0 right-0 rounded-tl-xl rounded-bl-xl rounded-br-2xl shadow-lg bg-opacity-70">
                         <CiDeliveryTruck
                           size={30}
-                          className="text-yellow-300"
+                          className="text-yellow-300 w-6 h-5 lg:w-8 lg:h-7"
                         />
-                        <p className="text-white font-extrabold">
+                        <p className="text-white font-extrabold text-xs lg:text-[15px]">
                           {shop?.deliveryTime}
                         </p>
                       </div>
@@ -99,23 +132,23 @@ const Home = () => {
             : "nai"}{" "}
           <button
             onClick={prevBtn}
-            className={`absolute rotate-180 top-14 -left-3 rounded-full w-8 h-8 shadow-lg shadow-gray-200 ${
+            className={`absolute lg:block hidden rotate-180 top-14 -left-3 rounded-full w-8 h-8 shadow-lg shadow-gray-200 ${
               currentPage == 0 && "hidden"
             }`}
           >
-            <FiChevronRight className="w-10 h-10 p-1 bg-white mx-auto hover:bg-gray-200  transform duration-200 rounded-full" />
+            <FiChevronRight className="w-10  h-10 p-1 bg-white mx-auto hover:bg-gray-200  transform duration-200 rounded-full" />
           </button>
           <button
             onClick={nextBtn}
-            className="absolute rotate-180 top-14 right-0 rounded-full w-8 h-8 shadow-lg shadow-gray-200"
+            className="absolute lg:block hidden rotate-180 top-14 right-0 rounded-full w-8 h-8 shadow-lg shadow-gray-200"
           >
             <FiChevronLeft className="w-10 h-10 p-1 bg-white mx-auto hover:bg-gray-200  transform duration-200 rounded-full" />
           </button>
         </div>
         {/* sorting data */}
-        <div className="w-[1500px]">
+        <div className="lg:w-[1500px] w-[320px]">
           <div className="mt-8 py-2 bg-slate-100  flex justify-between px-4 items-center rounded-lg">
-            <div className="flex space-x-3">
+            <div className="lg:flex hidden space-x-3">
               <button className="hover:bg-white py-3 px-4 rounded-lg">
                 All
               </button>
@@ -153,6 +186,29 @@ const Home = () => {
                 China
               </button>
             </div>
+            {/* mobile device start*/}
+            <div className="dropdown dropdown-hover">
+              <div tabIndex={0} role="button" className="btn m-1">
+                More
+              </div>
+              <ul
+                tabIndex={0}
+                className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
+              >
+                <li>
+                  <button>All</button>
+                  <button>Burger</button>
+                  <button>Sushi</button>
+                  <button>Wok</button>
+                  <button>Lounch</button>
+                  <button>Indian</button>
+                  <button>Bangali</button>
+                  <button>Biriyani</button>
+                  <button>Pizza</button>
+                </li>
+              </ul>
+            </div>
+            {/* mobile device end */}
             <button className="hover:bg-white py-3 px-4 rounded-lg flex items-center space-x-4">
               <VscSettings />
               <span> Sorting</span>
@@ -162,10 +218,9 @@ const Home = () => {
           {/* offer card */}
           <div className="mt-7">
             <h1 className="font-semibold text-3xl">Offer</h1>
-            <div className="grid grid-cols-4 gap-12 absolute">
+            <div className="grid lg:grid-cols-4 grid-cols-1 gap-12 lg:absolute">
               {offerFood &&
                 foodsCurrentOffer?.map((food) => {
-                  // console.log(foodtaurant, "134lin");
                   return (
                     <NavLink
                       onClick={() => handleNavigateToRestaurant(food?.resName)}
@@ -205,15 +260,15 @@ const Home = () => {
                 })}
               <button
                 onClick={prevFoodOfferBtn}
-                className={`absolute rotate-180 top-24 -left-4 rounded-full w-8 h-8 shadow-lg shadow-gray-200 ${
+                className={`absolute rotate-180 top-24 lg:block hidden -left-4 rounded-full w-8 h-8 shadow-lg shadow-gray-200 ${
                   foodCurrentPage == 0 && "hidden"
                 }`}
               >
-                <FiChevronRight className="w-10 h-10 p-1 bg-white mx-auto hover:bg-gray-200  transform duration-200 rounded-full" />
+                <FiChevronRight className="w-10 h-10 p-1  bg-white mx-auto hover:bg-gray-200  transform duration-200 rounded-full" />
               </button>
               <button
                 onClick={nextOfferBtn}
-                className={`absolute rotate-180 top-24 -right-5 rounded-full w-8 h-8 shadow-lg shadow-gray-200 ${
+                className={`absolute rotate-180 top-24 lg:block hidden -right-5 rounded-full w-8 h-8 shadow-lg shadow-gray-200 ${
                   foodCurrentPage === foodsCurrentOffer?.length && "hidden"
                 }`}
               >
@@ -223,9 +278,9 @@ const Home = () => {
           </div>
 
           {/* restaurant section */}
-          <div className="mt-[335px]">
+          <div className="lg:mt-[335px] mt-16">
             <h1 className="font-semibold text-3xl">Restaurant</h1>
-            <div className="grid grid-cols-4 gap-10">
+            <div className="grid lg:grid-cols-4 gap-10">
               {restaurant &&
                 restaurant?.map((res) => {
                   return (
@@ -234,7 +289,7 @@ const Home = () => {
                       key={res?._id}
                       className="rounded"
                     >
-                      <div className=" w-[340px] h-[270px] rounded-2xl mt-4 relative hover:cursor-pointer">
+                      <div className=" lg:w-[340px] w-80 h-[270px] rounded-2xl mt-4 relative hover:cursor-pointer">
                         <img
                           src={res?.resPhoto}
                           alt=""
