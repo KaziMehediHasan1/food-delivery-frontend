@@ -4,7 +4,6 @@ import { IoIosArrowDown, IoIosNotificationsOutline } from "react-icons/io";
 import { TbWorld } from "react-icons/tb";
 import { Link, useNavigate } from "react-router-dom";
 import { authContext } from "../AuthProvider/AuthProvider";
-import axios from "axios";
 import { toast } from "react-toastify";
 const navBar = () => {
   const navigete = useNavigate();
