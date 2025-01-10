@@ -11,8 +11,9 @@ const ShopDetails = () => {
   const [selectedItem, setSelectedItem] = useState(null);
   const { name } = useParams();
   const [products, isLoading] = useAllProducts();
+  console.log(products)
   const [cart, setCart] = useState({});
-  console.log(name, products);
+  // console.log(name, products);
   const handleAddTocart = (food) => {
     setCart((prevCart) => {
       const updatedCart = { ...prevCart };

@@ -1,6 +1,22 @@
 import { X } from "lucide-react";
-
+import Swal from "sweetalert2";
+// import "sweetalert2/src/sweetalert2.scss";
 const DetailsModal = ({ closeModal, item }) => {
+  console.log(item);
+  // add to cart handler
+  const handleAddToCart = (item) => {
+    if (item) {
+      localStorage.setItem("product", JSON.stringify(item));
+      closeModal();
+      Swal.fire({
+        title: "Drag me!",
+        icon: "success",
+        draggable: true,
+      });
+    }
+  };
+
+  // console.log(localStorage.getItem(JSON.parse("product")), "19 line");
   return (
     <div className="fixed inset-0 z-50 flex items-center font-robotomain justify-center bg-black bg-opacity-20 backdrop-blur-sm">
       {/* Modal content */}
@@ -33,7 +49,10 @@ const DetailsModal = ({ closeModal, item }) => {
               <h1 className="text-4xl font-bold mb-4">
                 {item?.foodPrice || item?.proPrice}TK
               </h1>
-              <button className="w-28 h-14 text-xl font-semibold rounded-xl bg-yellow-200 mx-auto hover:bg-yellow-300 duration-200 transform ">
+              <button
+                onClick={() => handleAddToCart(item)}
+                className="w-28 h-14 text-xl font-semibold rounded-xl bg-yellow-200 mx-auto hover:bg-yellow-300 duration-200 transform "
+              >
                 Add
               </button>
             </div>
