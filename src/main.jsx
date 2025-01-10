@@ -8,6 +8,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import NavbarProvider from "./components/Navbar/NavContext/NavbarProvider.jsx";
 const queryClient = new QueryClient();
 const clientID = import.meta.env.VITE_GOOGLE_OAUTH_CLIENTID;
 createRoot(document.getElementById("root")).render(
@@ -15,7 +16,9 @@ createRoot(document.getElementById("root")).render(
     <QueryClientProvider client={queryClient}>
       <GoogleOAuthProvider clientId={clientID}>
         <AuthProvider>
-          <RouterProvider router={router} />
+          <NavbarProvider>
+            <RouterProvider router={router} />
+          </NavbarProvider>
           <ToastContainer />
         </AuthProvider>
       </GoogleOAuthProvider>

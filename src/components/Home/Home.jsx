@@ -1,7 +1,7 @@
 import { CiBookmark, CiDeliveryTruck } from "react-icons/ci";
 import useAllRestaurant from "../hooks/useAllRestaurant";
 import useAllShop from "../hooks/useAllShop";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import "swiper/css/bundle";
 import { useState } from "react";
@@ -9,7 +9,9 @@ import { VscSettings } from "react-icons/vsc";
 import { MdOutlineDeliveryDining } from "react-icons/md";
 import useAllFoods from "../hooks/useAllFoods";
 import { IoIosStar } from "react-icons/io";
+import navBar from "../Navbar/Navbar";
 const Home = () => {
+  const navigate = useNavigate();
   const [restaurant, isLoading, refetch] = useAllRestaurant();
   const [shops] = useAllShop();
   const [foods] = useAllFoods();
@@ -46,8 +48,18 @@ const Home = () => {
     foodCurrentPage * 4,
     (foodCurrentPage + 1) * 4
   );
+
+  // navigate to details restaurant !
+  const handleNavigateToRestaurant = (name) => {
+    console.log(name);
+    navigate(`/restaurant-details/${name}`);
+  };
+  const handleNavigateToShop = (name) => {
+    console.log(name);
+    navigate(`/shop-details/${name}`);
+  };
   return (
-    <div className="w-[1520px] mx-auto mt-10 font-robotomain pb-96">
+    <div className="w-[1520px] mx-auto mt-10 font-robotomain pb-10">
       {/* SHOP SECTION */}
       <div>
         <div className="flex items-center justify-between">
@@ -61,7 +73,10 @@ const Home = () => {
           {shops
             ? currentShops?.map((shop) => {
                 return (
-                  <NavLink key={shop?._id}>
+                  <NavLink
+                    onClick={() => handleNavigateToShop(shop?.shopName)}
+                    key={shop?._id}
+                  >
                     <div
                       style={{
                         backgroundImage: `url(${shop?.shopImage})`,
@@ -154,12 +169,16 @@ const Home = () => {
                 foodsCurrentOffer?.map((food) => {
                   // console.log(foodtaurant, "134lin");
                   return (
-                    <NavLink key={food._id} className="rounded">
+                    <NavLink
+                      onClick={() => handleNavigateToRestaurant(food?.resName)}
+                      key={food?._id}
+                      className="rounded"
+                    >
                       <div className=" w-[340px] h-[270px] rounded-2xl mt-4 relative hover:cursor-pointer">
                         <img
                           src={food?.foodPhoto}
                           alt=""
-                          className="h-[185px] w-[340px] rounded-xl object-cover object-contain"
+                          className="h-[185px] w-[340px] rounded-xl object-cover"
                         />
                         <div className=" py-1 px-2 space-x-3 mx-auto bg-gray-900 flex items-center absolute right-3 m-4 -top-2 rounded-full shadow-lg bg-opacity-70 hover:bg-slate-50 text-white hover:text-black">
                           <CiBookmark className="w-5 h-7  " />
@@ -178,7 +197,9 @@ const Home = () => {
                             <MdOutlineDeliveryDining size={20} />
                             <p className="text-xs">20-30mins</p>
                           </div>
-                          <p className="text-sm pt-2">Free Delivery</p>
+                          <p className="text-sm mt-2 py-[2px] px-2 rounded-md  bg-green-100 inline-block text-green-600 ">
+                            Free Delivery
+                          </p>
                         </div>
                       </div>
                     </NavLink>
@@ -200,6 +221,48 @@ const Home = () => {
               >
                 <FiChevronLeft className="w-10 h-10 p-1 bg-white mx-auto hover:bg-gray-200  transform duration-200 rounded-full" />
               </button>
+            </div>
+          </div>
+
+          {/* restaurant section */}
+          <div className="mt-[335px]">
+            <h1 className="font-semibold text-3xl">Restaurant</h1>
+            <div className="grid grid-cols-4 gap-10">
+              {restaurant &&
+                restaurant?.map((res) => {
+                  return (
+                    <NavLink key={res?._id} className="rounded">
+                      <div className=" w-[340px] h-[270px] rounded-2xl mt-4 relative hover:cursor-pointer">
+                        <img
+                          src={res?.resPhoto}
+                          alt=""
+                          className="h-[185px] w-[340px] rounded-xl object-cover"
+                        />
+                        <div className=" py-1 px-2 space-x-3 mx-auto bg-gray-900 flex items-center absolute right-3 m-4 -top-2 rounded-full shadow-lg bg-opacity-70 hover:bg-slate-50 text-white hover:text-black">
+                          <CiBookmark className="w-5 h-7  " />
+                        </div>
+
+                        <div className="px-2 py-2">
+                          <section className="flex items-center justify-between ">
+                            <h1>{res?.resName}</h1>
+                            <div className="flex items-center space-x-2">
+                              {" "}
+                              <IoIosStar size={12} />
+                              <p className="text-xs font-semibold">4.3</p>
+                            </div>
+                          </section>
+                          <div className="pt-2 flex items-center space-x-3 font-semibold">
+                            <MdOutlineDeliveryDining size={20} />
+                            <p className="text-xs">{res?.resDeliveryTime}</p>
+                          </div>
+                          <p className="text-sm mt-2 py-[2px] px-2 rounded-md  bg-green-50 inline-block text-green-500">
+                            Free Delivery
+                          </p>
+                        </div>
+                      </div>
+                    </NavLink>
+                  );
+                })}
             </div>
           </div>
         </div>

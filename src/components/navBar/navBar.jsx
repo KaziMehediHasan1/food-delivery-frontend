@@ -5,7 +5,9 @@ import { TbWorld } from "react-icons/tb";
 import { Link } from "react-router-dom";
 // import useUser from "../hooks/useUser";
 import { authContext } from "../AuthProvider/AuthProvider";
+// import { NavbarContext } from "../Navbar/NavContext/NavbarProvider";
 const navBar = () => {
+  // const { navbarTitle, setNavbarTitle } = useContext(NavbarContext);
   const [dropdown, setDropdown] = useState(false);
   const { logout } = useContext(authContext);
   // const [users, isLoading, refetch] = useUser();
@@ -14,13 +16,14 @@ const navBar = () => {
   const handleDropdown = () => {
     setDropdown((prev) => !prev);
   };
-  console.log(dropdown);
-  console.log(user, "15 no line");
+  // console.log(navbarTitle)
   return (
     <div className="border-b-[1px] font-robotomain border-gray-300 w-[98%] mx-auto">
       <nav className="flex items-center justify-between px-4 py-3">
         <div className="flex items-center space-x-5">
-          <h1 className="font-bold text-xl">FreshFeast</h1>
+          <div className="font-bold text-xl flex items-center space-x-4">
+            <Link to="/"> FreshFeast</Link> <div className="h-4 border"></div>
+          </div>
 
           <label className="border pl-2 border-[#F2D700] rounded-lg flex items-center gap-2">
             <svg
@@ -36,10 +39,10 @@ const navBar = () => {
               />
             </svg>
 
-            <section className="flex ">
+            <section className="flex">
               <input
                 type="text"
-                className="outline-none px-3 py-[9px] text-sm "
+                className="outline-none px-3 py-[9px] text-sm border-none focus:ring-0"
                 placeholder="Search for restaurants, food or produ..."
               />
               <button className="w-full bg-[#F2D700] px-4 rounded-r-lg text-sm">
@@ -80,9 +83,9 @@ const navBar = () => {
                 )}
 
                 <div
-                  className={`w-96 bg-white shadow-lg rounded-xl px-5 py-5 h-80  ${
+                  className={`w-96 bg-white shadow-lg rounded-xl px-5 py-1 h-80  ${
                     dropdown
-                      ? "fixed top-[220px] right-4 -translate-y-[215px] duration-200 "
+                      ? "fixed top-[220px] right-4 z-10 -translate-y-[215px] duration-200 "
                       : "hidden"
                   }`}
                 >
@@ -97,7 +100,7 @@ const navBar = () => {
                       <img src={user?.photo} className={`w-10 rounded-full`} />
                     )}
                   </div>
-                  <div className="flex flex-col mt-4 space-y-2 place-items-start">
+                  <div className="flex flex-col mt-3 space-y-2 place-items-start">
                     <Link className="hover:bg-slate-100 py-[6px] rounded-lg">
                       My Info
                     </Link>
@@ -109,6 +112,9 @@ const navBar = () => {
                     </Link>
                     <Link className="hover:bg-slate-100 py-[6px] rounded-lg">
                       Affiliate network
+                    </Link>
+                    <Link to="/dashboard" className="hover:bg-slate-100 py-[6px] rounded-lg">
+                      Dashboard
                     </Link>
                     <button
                       onClick={() => logout()}

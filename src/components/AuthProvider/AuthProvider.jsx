@@ -10,11 +10,12 @@ const AuthProvider = ({ children }) => {
     const res = await axios.get(`${url}/users`, {
       params: { email, hashedPass },
     });
-    if (res?.data && res?.data?.findUsers) {
-      setUser(res?.data?.findUsers);
-      localStorage.setItem("token", res?.data?.token);
-      localStorage.setItem("user", JSON.stringify(res?.data?.findUsers));
-    }
+    return res;
+    // if (res?.data && res?.data?.findUsers) {
+    //   setUser(res?.data?.findUsers);
+    //   localStorage.setItem("token", res?.data?.token);
+    //   localStorage.setItem("user", JSON.stringify(res?.data?.findUsers));
+    // }
   };
   const logout = () => {
     setUser(null);

@@ -11,6 +11,8 @@ import AddShop from "../components/Dashboard/Content/AddShop";
 import AddProduct from "../components/Dashboard/Content/AddProduct";
 import AllFood from "../components/Dashboard/Content/AllFood";
 import AllProducts from "../components/Dashboard/Content/AllProducts";
+import RestaurantDetails from "../components/Shared/RestaurantDetails";
+import ShopDetails from "../components/Shared/ShopDetails";
 
 export const router = createBrowserRouter([
   {
@@ -21,6 +23,14 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/restaurant-details/:name",
+        element: <RestaurantDetails />,
+      },
+      {
+        path: "/shop-details/:name",
+        element: <ShopDetails />,
       },
     ],
   },
