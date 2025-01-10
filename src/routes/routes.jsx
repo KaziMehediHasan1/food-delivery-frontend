@@ -13,6 +13,7 @@ import AllFood from "../components/Dashboard/Content/AllFood";
 import AllProducts from "../components/Dashboard/Content/AllProducts";
 import RestaurantDetails from "../components/Shared/RestaurantDetails";
 import ShopDetails from "../components/Shared/ShopDetails";
+import SearchingData from "../components/Shared/SearchingData";
 
 export const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ export const router = createBrowserRouter([
       {
         path: "/shop-details/:name",
         element: <ShopDetails />,
+      },
+      {
+        path: "/searching",
+        element: <SearchingData />,
       },
     ],
   },

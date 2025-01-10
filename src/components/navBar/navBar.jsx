@@ -2,21 +2,27 @@ import { useContext, useState } from "react";
 import { GrLocationPin } from "react-icons/gr";
 import { IoIosArrowDown, IoIosNotificationsOutline } from "react-icons/io";
 import { TbWorld } from "react-icons/tb";
-import { Link } from "react-router-dom";
-// import useUser from "../hooks/useUser";
+import { Link, useNavigate } from "react-router-dom";
 import { authContext } from "../AuthProvider/AuthProvider";
-// import { NavbarContext } from "../Navbar/NavContext/NavbarProvider";
+import axios from "axios";
+import { toast } from "react-toastify";
 const navBar = () => {
-  // const { navbarTitle, setNavbarTitle } = useContext(NavbarContext);
+  const navigete = useNavigate();
   const [dropdown, setDropdown] = useState(false);
   const { logout } = useContext(authContext);
-  // const [users, isLoading, refetch] = useUser();
+  const [search, setSearch] = useState("");
   const user = JSON.parse(localStorage.getItem("user"));
   const token = localStorage.getItem("token");
   const handleDropdown = () => {
     setDropdown((prev) => !prev);
   };
-  // console.log(navbarTitle)
+  const handleSearchData = async () => {
+    if (!search.trim()) {
+      toast.error("please write you foods name!");
+      return;
+    }
+    navigete(`/searching?search=${search}`);
+  };
   return (
     <div className="border-b-[1px] font-robotomain border-gray-300 w-[98%] mx-auto">
       <nav className="flex items-center justify-between px-4 py-3">
@@ -42,10 +48,16 @@ const navBar = () => {
             <section className="flex">
               <input
                 type="text"
+                onChange={(e) => setSearch(e.target.value)}
                 className="outline-none px-3 py-[9px] text-sm border-none focus:ring-0"
-                placeholder="Search for restaurants, food or produ..."
+                placeholder={
+                  search ? search : "Search for restaurants, food or produ..."
+                }
               />
-              <button className="w-full bg-[#F2D700] px-4 rounded-r-lg text-sm">
+              <button
+                onClick={handleSearchData}
+                className="w-full bg-[#F2D700] px-4 rounded-r-lg text-sm"
+              >
                 Search
               </button>
             </section>
@@ -113,7 +125,10 @@ const navBar = () => {
                     <Link className="hover:bg-slate-100 py-[6px] rounded-lg">
                       Affiliate network
                     </Link>
-                    <Link to="/dashboard" className="hover:bg-slate-100 py-[6px] rounded-lg">
+                    <Link
+                      to="/dashboard"
+                      className="hover:bg-slate-100 py-[6px] rounded-lg"
+                    >
                       Dashboard
                     </Link>
                     <button
