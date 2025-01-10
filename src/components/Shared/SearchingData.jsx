@@ -69,14 +69,14 @@ const SearchingData = () => {
     setShowModal(true);
     setSelectedItem(item);
   };
-  console.log(loading, searchResult, "30no line");
+
   return (
-    <div className="bg-gray-100 rounded-[50px]  h-screen pt-12 px-20">
+    <div className="bg-gray-100 rounded-[50px] h-screen pt-12 px-20">
       <div>
-        <div className="mt-10 grid grid-cols-4 gap-10">
+        <div className="mt-10 grid grid-cols-7 gap-10">
           {searchResult?.map((item) => {
             return (
-              <button
+              <NavLink
                 className="w-[200px] h-[300px] bg-white rounded-3xl shadow-sm shadow-gray-50"
                 key={item?._id}
                 onClick={() => handleModalOpen(item)}
@@ -123,7 +123,7 @@ const SearchingData = () => {
                     </div>
                   </div>
                 </div>
-              </button>
+              </NavLink>
             );
           })}
         </div>

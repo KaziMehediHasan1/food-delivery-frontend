@@ -51,11 +51,9 @@ const Home = () => {
 
   // navigate to details restaurant !
   const handleNavigateToRestaurant = (name) => {
-    console.log(name);
     navigate(`/restaurant-details/${name}`);
   };
   const handleNavigateToShop = (name) => {
-    console.log(name);
     navigate(`/shop-details/${name}`);
   };
   return (
@@ -231,7 +229,11 @@ const Home = () => {
               {restaurant &&
                 restaurant?.map((res) => {
                   return (
-                    <NavLink key={res?._id} className="rounded">
+                    <NavLink
+                      onClick={() => handleNavigateToRestaurant(res?.resName)}
+                      key={res?._id}
+                      className="rounded"
+                    >
                       <div className=" w-[340px] h-[270px] rounded-2xl mt-4 relative hover:cursor-pointer">
                         <img
                           src={res?.resPhoto}

@@ -1,13 +1,16 @@
 import { FiArrowLeft, FiMinus } from "react-icons/fi";
-import { Link, useParams } from "react-router-dom";
+import { Link, NavLink, useParams } from "react-router-dom";
 import useAllRestaurant from "../hooks/useAllRestaurant";
 import useAllFoods from "../hooks/useAllFoods";
 import { IoMdAdd } from "react-icons/io";
 import { IoAlertSharp } from "react-icons/io5";
 import { CiDeliveryTruck, CiStar } from "react-icons/ci";
 import { useState } from "react";
+import DetailsModal from "./DetailsModal";
 
 const RestaurantDetails = () => {
+  const [showModal, setShowModal] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
   const [restaurant] = useAllRestaurant();
   const [foods, isLoading, refetch] = useAllFoods();
   const [cart, setCart] = useState({});
@@ -43,7 +46,11 @@ const RestaurantDetails = () => {
       return updatedCart;
     });
   };
-
+  // modal handler
+  const handleModalOpen = (item) => {
+    setShowModal(true);
+    setSelectedItem(item);
+  };
   // type to show data
   const handleTypeToShowData = (type) => {
     console.log("data", type);
@@ -89,7 +96,7 @@ const RestaurantDetails = () => {
                 return (
                   <div
                     key={item?._id}
-                    className="h-80 bg-opacity-70 bg-cover relative rounded-3xl"
+                    className="h-80 inset-0 bg-cover bg-black bg-opacity-30 backdrop-blur-sm relative rounded-3xl"
                     style={{
                       backgroundImage: `url(${item?.resPhoto})`,
                     }}
@@ -143,7 +150,8 @@ const RestaurantDetails = () => {
                 ?.filter((food) => food?.resName === name)
                 .map((item) => {
                   return (
-                    <div
+                    <button
+                      onClick={() => handleModalOpen(item)}
                       key={item?._id}
                       className="w-[200px] h-[300px] bg-white rounded-3xl shadow-sm shadow-gray-50"
                     >
@@ -186,11 +194,17 @@ const RestaurantDetails = () => {
                           )}
                         </div>
                       </div>
-                    </div>
+                    </button>
                   );
                 })}
             </div>
           </div>
+          {showModal && (
+            <DetailsModal
+              closeModal={() => setShowModal(false)}
+              item={selectedItem}
+            />
+          )}
           {/* Add to cart section */}
           <div className="w-[300px] h-screen bg-white flex-shrink-0 rounded-t-3xl shadow-xl shadow-gray-50">
             <div className="p-4">
